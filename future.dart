@@ -1,11 +1,9 @@
-void main(List<String> args) {}
-
-String createOrderMessage() {
-  var order = fetchUserOrder();
-  return "Your order is $order";
+void main(List<String> args) {
+  fetchUserOrder();
+  print("Fetching user order...");
 }
 
-Future<String> fetchUserOrder() => Future.delayed(
+Future<void> fetchUserOrder() => Future.delayed(
       const Duration(seconds: 2),
-      () => "Large latte",
+      () => print("Large latte"),
     );
