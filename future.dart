@@ -1,22 +1,21 @@
-Future<String> fetchUserOrder() => Future.delayed(
-      const Duration(seconds: 4),
-      () => "Large latte",
-    );
-
-Future<void> printOrderMessages() async {
-  print("Awaiting user order ...");
-  final order = await fetchUserOrder();
-  print("Your order is $order");
+Future<String> fetchUserOrder() {
+  final str = Future.delayed(
+    const Duration(seconds: 4),
+    () => throw "Cannot locate user order",
+  );
+  return str;
 }
 
-Future<void> main(List<String> args) async {
-  countSeconds(4);
-  await printOrderMessages();
-}
-
-void countSeconds(int s) {
-  for (var i = 0; i < s; i++) {
-    if (i == 0) continue;
-    Future.delayed(Duration(seconds: i), () => print(i));
+Future<void> printOrderMessage() async {
+  try {
+    print("Awaiting user order ...");
+    final order = await fetchUserOrder();
+    print(order);
+  } catch (e) {
+    print("Caught error: $e");
   }
+}
+
+void main() async {
+  await printOrderMessage();
 }
