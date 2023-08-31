@@ -1,14 +1,22 @@
-Future<void> main(List<String> args) async {
-  print("Fetching user order ...");
-  print(await createOrderMessage());
-}
-
-Future<String> createOrderMessage() async {
-  final order = await fetchUserOrder();
-  return "Your order is $order";
-}
-
 Future<String> fetchUserOrder() => Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 4),
       () => "Large latte",
     );
+
+Future<void> printOrderMessages() async {
+  print("Awaiting user order ...");
+  final order = await fetchUserOrder();
+  print("Your order is $order");
+}
+
+Future<void> main(List<String> args) async {
+  countSeconds(4);
+  await printOrderMessages();
+}
+
+void countSeconds(int s) {
+  for (var i = 0; i < s; i++) {
+    if (i == 0) continue;
+    Future.delayed(Duration(seconds: i), () => print(i));
+  }
+}
