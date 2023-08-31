@@ -1,9 +1,14 @@
-void main(List<String> args) {
-  fetchUserOrder();
+Future<void> main(List<String> args) async {
   print("Fetching user order ...");
+  print(await createOrderMessage());
 }
 
-Future<void> fetchUserOrder() => Future.delayed(
+Future<String> createOrderMessage() async {
+  final order = await fetchUserOrder();
+  return "Your order is $order";
+}
+
+Future<String> fetchUserOrder() => Future.delayed(
       const Duration(seconds: 2),
-      () => throw Exception("Logout failed: User's ID is invalid"),
+      () => "Large latte",
     );
